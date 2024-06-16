@@ -7,9 +7,8 @@ if __name__ == "__main__":
         source=GitRepository(
             url="https://github.com/dijarvrella/prefect-flows",
             credentials=GitHubCredentials.load("dv"),
-            install_command="pip install -r requirements.txt"
         ),
-        entrypoint="prefect-flows-main/flows/create_container.py:create_docker_container_flow",
+        entrypoint="prefect-flows-main/create_container.py:create_docker_container_flow",
     ).deploy(
         name="create-container-from-git-deployment",
         work_pool_name="seedoo-container-worker",
