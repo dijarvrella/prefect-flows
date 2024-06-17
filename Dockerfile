@@ -6,8 +6,16 @@ ENV PREFECT_API_URL=http://localhost:4200/api
 ENV PREFECT_SERVER_API_HOST=0.0.0.0
 
 COPY flow.py /opt/prefect/flow.py
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
 # Install necessary Python packages
 RUN pip install prefect-docker prefect-github requests==2.31.0
 
+# Make the entrypoint script executable
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Set the entrypoint to the script
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
+# Default command (can be overridden)
 CMD ["tail", "-f", "/dev/null"]
