@@ -5,7 +5,7 @@ if [ "$PREFECT_NODE_TYPE" == "server" ]; then
     prefect server start
 elif [ "$PREFECT_NODE_TYPE" == "agent" ]; then
     echo "Starting Prefect agent..."
-    prefect agent start
+    prefect worker start --pool seedoo-container-worker
 else
     echo "Unknown or unspecified PREFECT_NODE_TYPE: $PREFECT_NODE_TYPE"
     exec "$@"
