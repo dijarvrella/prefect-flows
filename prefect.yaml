@@ -5,9 +5,9 @@ build: {}
 pull: {}
 
 deployments:
-- name: pull-and-run-nginx
+- name: pull_and_run_seedoo_image
   version: 1.0
-  entrypoint: "flow.py:pull_and_run_nginx"
+  entrypoint: "flow.py:pull_and_run_seedoo_image"
   work_queue_name: default
   description: A flow to pull and run nginx:latest Docker container
   storage: {}

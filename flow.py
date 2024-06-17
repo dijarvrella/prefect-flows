@@ -5,11 +5,11 @@ from prefect_docker.containers import create_docker_container, start_docker_cont
 from prefect_docker.credentials import DockerRegistryCredentials
 
 @flow
-async def pull_and_run_nginx():
+async def pull_and_run_image():
     # Load Docker credentials
     docker_registry_credentials = await DockerRegistryCredentials.load("seedoo-docker-registry")
 
-    # Pull the latest nginx image from the private repository
+    # Pull the latest image from the private repository
     image = await pull_docker_image(
         repository="seedooinsights/build",
         tag="11ba042",
@@ -17,10 +17,26 @@ async def pull_and_run_nginx():
     )
     print(f"Pulled image: {image}")
 
-    # Create and run a container from the pulled image
+    # Create a container with the specified flags
     container = await create_docker_container(
         image="seedooinsights/build:11ba042",
-        command=["tail", "-f", "/dev/null"]
+        command=["python", "test.py"],
+        volumes=[
+            f"/opt/prefect/test.py:/workspace/test.py",
+            "/seedoodata:/seedoodata",
+        ],
+        device_requests=[
+            {
+                'Driver': 'nvidia',
+                'Count': -1,
+                'Capabilities': [['gpu']],
+            },
+        ],
+        group_add=["seedoo"],
+        detach=True,
+        tty=True,
+        stdin_open=True,  # -it is a combination of -i (interactive) and -t (tty)
+        cap_add=["SYSLOG"]
     )
     print(f"Created container: {container}")
 
@@ -29,4 +45,4 @@ async def pull_and_run_nginx():
     print(f"Started container: {started_container}")
 
 if __name__ == "__main__":
-    asyncio.run(pull_and_run_nginx())
+    asyncio.run(pull_and_run_image())
