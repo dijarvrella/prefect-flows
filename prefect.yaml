@@ -7,16 +7,13 @@ pull: {}
 deployments:
 - name: pull_and_run_seedoo_image
   version: 1.0
-  entrypoint: "flow.py:pull_and_run_seedoo_image"
+  entrypoint: "/opt/prefect/flow.py:pull_and_run_seedoo_image"
   work_queue_name: default
   description: A flow to pull and run nginx:latest Docker container
   storage: {}
   infrastructure:
     type: docker-container
     image: seedoo-prefect-agent:latest
-    command:
-       - "python"
-       - "/opt/prefect/flow.py"
   tags: []
   parameters: {}
   work_pool:

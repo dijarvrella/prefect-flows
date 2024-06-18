@@ -22,7 +22,6 @@ async def pull_and_run_image():
         image="seedooinsights/build:11ba042",
         command=["python", "test.py"],
         volumes=[
-            f"/opt/prefect/test.py:/workspace/test.py",
             "/seedoodata:/seedoodata",
         ],
         device_requests=[
