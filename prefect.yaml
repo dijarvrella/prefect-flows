@@ -21,4 +21,3 @@ deployments:
     work_queue_name:
     job_variables: {}
   schedules: []
-  build:
