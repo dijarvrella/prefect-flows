@@ -22,6 +22,3 @@ deployments:
     job_variables: {}
   schedules: []
   build:
-  pull:
-  - prefect.deployments.steps.set_working_directory:
-    directory: /opt/prefect
