@@ -8,11 +8,11 @@ deployments:
     version: 1.0
     entrypoint: "/opt/prefect/flow.py:pull_and_run_image"
     work_queue_name: default
-    description: A flow to pull and run `seedoo build:latest` Docker container
+    description: A flow to pull and run seedoo build:latest Docker container
     storage: {}
     infrastructure:
       type: docker-container
-      image: dijarvrella444/prefect-agent:1.1
+      image: dijarvrella444/prefect-agent:1.2
       command: ["python", "/opt/prefect/flow.py"]
       volumes:
         - host: /var/run/docker.sock

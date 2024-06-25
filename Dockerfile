@@ -5,7 +5,7 @@ FROM prefecthq/prefect:2-latest-conda
 ENV PREFECT_API_URL=http://localhost:4200/api
 ENV PREFECT_SERVER_API_HOST=0.0.0.0
 
-COPY flow.py /opt/prefect/flow.py
+COPY flow.py .
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
 # Install necessary Python packages
@@ -14,13 +14,12 @@ RUN apt-get update && \
     apt-get install -y docker.io && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-
+    
 # Make the entrypoint script executable
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # Set the entrypoint to the script
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+#ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 # Default command (can be overridden)
 CMD ["tail", "-f", "/dev/null"]

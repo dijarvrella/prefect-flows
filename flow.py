@@ -82,7 +82,7 @@ async def pull_and_run_image():
     logger.info(f"Started container: {started_container}")
 
     # Get the container logs
-    await asyncio.sleep(5)  # Add a 5 second sleep
+    await asyncio.sleep(10)  # Add a 10 second sleep
     container_logs = await get_docker_container_logs_flow(container.id)
     logger.info(f"Container logs: {container_logs}")
     
