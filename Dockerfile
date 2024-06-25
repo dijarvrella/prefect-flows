@@ -10,6 +10,11 @@ COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
 # Install necessary Python packages
 RUN pip install prefect-docker prefect-github requests==2.31.0
+RUN apt-get update && \
+    apt-get install -y docker.io && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 
 # Make the entrypoint script executable
 RUN chmod +x /usr/local/bin/entrypoint.sh
