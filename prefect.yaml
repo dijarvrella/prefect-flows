@@ -15,6 +15,9 @@ deployments:
       type: docker-container
       image: dijarvrella444/prefect-agent:1.0
       command: ["python", "/opt/prefect/flow.py"]
+      volumes:
+        - host_path: /var/run/docker.sock
+          container_path: /var/run/docker.sock
       env_vars:
         PREFECT__LOGGING__LEVEL: "INFO"
       working_dir: "/opt/prefect"
