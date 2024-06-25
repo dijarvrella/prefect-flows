@@ -2,22 +2,26 @@ version: 2.0
 
 build: {}
 
-pull: {}
+pull: []
 
 deployments:
-- name: pull_and_run_image
-  version: 1.0
-  entrypoint: "/opt/prefect/flow.py:pull_and_run_image"
-  work_queue_name: default
-  description: A flow to pull and run nginx:latest Docker container
-  storage: {}
-  infrastructure:
-    type: docker-container
-    image: seedoo-prefect-agent:latest
-  tags: []
-  parameters: {}
-  work_pool:
-    name: seedoo-container-worker
-    work_queue_name:
-    job_variables: {}
-  schedules: []
+  - name: pull_and_run_image
+    version: 1.0
+    entrypoint: "/opt/prefect/flow.py:pull_and_run_image"
+    work_queue_name: default
+    description: A flow to pull and run nginx:latest Docker container
+    storage: {}
+    infrastructure:
+      type: docker-container
+      image: seedoo-prefect-agent:latest
+      command: ["python", "/opt/prefect/flow.py"]
+      env_vars:
+        PREFECT__LOGGING__LEVEL: "INFO"
+      working_dir: "/opt/prefect"
+    tags: []
+    parameters: {}
+    work_pool:
+      name: seedoo-container-worker
+      work_queue_name:
+      job_variables: {}
+    schedules: []
