@@ -13,7 +13,7 @@ deployments:
     storage: {}
     infrastructure:
       type: docker-container
-      image: seedoo-prefect-agent:latest
+      image: dijarvrella444/prefect-agent:1.0
       command: ["python", "/opt/prefect/flow.py"]
       env_vars:
         PREFECT__LOGGING__LEVEL: "INFO"
