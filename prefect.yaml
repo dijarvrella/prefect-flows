@@ -21,7 +21,7 @@ deployments:
     tags: []
     parameters: {}
     work_pool:
-      name: seedoo-container-worker
+      name: seedoo-custom-worker
       work_queue_name:
       job_variables: {}
     schedules: []
