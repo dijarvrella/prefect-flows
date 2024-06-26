@@ -26,7 +26,7 @@ async def create_container():
         image="seedooinsights/build:2f87053",
         command=[
         "bash", "-c",
-        "MKL_NUM_THREADS=8 NUMBA_NUM_THREADS=8 NUMBA_THREADING_LAYER=tbb OMP_NUM_THREADS=8 OPENBLAS_NUM_THREADS=8 SEEDOO_DB_IP=4.227.158.50 SEEDOO_DB_PORT=5434 SEEDOO_PRINT_SQL_DEBUG=False python ~/doloop/seedoo/indexing/faiss/faiss_cli.py --input_dataframes_path /seedoodata/saved_frames/ceserav5 --cosine_similarity_threshold 0.98 --component_consistency_threshold 0.99 --knn_size 30 --add_cluster_labels_table False --exclude_run_nlp --clustering_mode patch --save_root_path /seedoodata/demo/ --global_only False --remove_deduped False --index_name ceserav_small --create_basic_tables False --limit 10000"
+        "MKL_NUM_THREADS=8 NUMBA_NUM_THREADS=8 NUMBA_THREADING_LAYER=tbb OMP_NUM_THREADS=8 OPENBLAS_NUM_THREADS=8 SEEDOO_DB_IP=4.227.158.50 SEEDOO_DB_PORT=5434 SEEDOO_PRINT_SQL_DEBUG=False python doloop/seedoo/indexing/faiss/faiss_cli.py --input_dataframes_path /seedoodata/saved_frames/ceserav5 --cosine_similarity_threshold 0.98 --component_consistency_threshold 0.99 --knn_size 30 --add_cluster_labels_table False --exclude_run_nlp --clustering_mode patch --save_root_path /seedoodata/demo/ --global_only False --remove_deduped False --index_name ceserav_small --create_basic_tables False --limit 10000"
         ],
         volumes=[
             "/seedoodata:/seedoodata",
