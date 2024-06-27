@@ -24,7 +24,7 @@ async def create_container():
     logger.info("Creating a container with the specified flags...")
     container = await create_docker_container(
         image="seedooinsights/build:159d211",
-        command=["bash", "-c", "doloop/seedoo/indexing/preprocessing/indexer.sh /seedoodata/datasets/data/traffic_lights/data.pkl ./aaa traffic"],
+        command=["bash", "-c", "cd doloop/seedoo/indexing/preprocessing && bash indexer.sh /seedoodata/datasets/data/traffic_lights/data.pkl ./aaa traffic"],
         environment=[
             "MKL_NUM_THREADS=8",
             "NUMBA_NUM_THREADS=8",
