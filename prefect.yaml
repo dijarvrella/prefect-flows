@@ -12,7 +12,7 @@ deployments:
     storage: {}
     infrastructure:
       type: docker-container
-      image: dijarvrella444/prefect-agent:1.7
+      image: dijarvrella444/prefect-agent:2.0
       command: ["python", "/opt/prefect/flow.py"]
       volumes:
         - host: /var/run/docker.sock
