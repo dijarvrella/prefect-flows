@@ -11,7 +11,7 @@ async def pull_image(credentials):
     logger.info("Pulling the latest image from the private repository...")
     image = await pull_docker_image(
         repository="seedooinsights/build",
-        tag="2f87053",
+        tag="159d211",
         docker_registry_credentials=credentials
     )
     logger.info(f"Pulled image: {image}")
@@ -23,8 +23,8 @@ async def create_container():
     # Create a container with the specified flags
     logger.info("Creating a container with the specified flags...")
     container = await create_docker_container(
-        image="seedooinsights/build:2f87053",
-        command=["python", "test.py"],
+        image="seedooinsights/build:fe3dd99",
+        command=["bash", "-c", "doloop/seedoo/indexing/preprocessing/indexer.sh /seedoodata/datasets/data/traffic_lights/data.pkl ./aaa traffic"],
         environment=[
             "MKL_NUM_THREADS=8",
             "NUMBA_NUM_THREADS=8",
