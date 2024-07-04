@@ -10,3 +10,10 @@ services:
     ports:
       - "4200-4201:4200-4201"
     command: prefect server start
+  prefect-worker:
+    image: dijarvrella444/prefect-base:latest
+    network_mode: "host"
+    environment:
+      - PREFECT_API_URL=http://localhost:4200/api
+      - PREFECT_NODE_TYPE=worker
+    command: prefect worker start --pool "seedoo-custom-worker"
