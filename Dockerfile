@@ -19,7 +19,4 @@ RUN apt-get update && \
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # Set the entrypoint to the script
-#ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-
-# Default command (can be overridden)
-CMD ["tail", "-f", "/dev/null"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
