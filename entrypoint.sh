@@ -1,14 +1,11 @@
 #!/usr/bin/env bash
 
-if [ "$PREFECT_NODE_TYPE" == "shell" ]; then
-    echo "Starting shell..."
-    exec "$@"
-elif [ "$PREFECT_NODE_TYPE" == "server" ]; then
+if [ "$PREFECT_NODE_TYPE" == "server" ]; then
     echo "Starting Prefect server..."
-    # Run the server command here
+    source /opt/prefect/entrypoint.sh
 elif [ "$PREFECT_NODE_TYPE" == "worker" ]; then
     echo "Starting Prefect worker..."
-    # Run the worker command here
+    prefect worker start --pool seedoo-custom-worker
 else
     echo "Unknown or unspecified PREFECT_NODE_TYPE: $PREFECT_NODE_TYPE"
     exec "$@"

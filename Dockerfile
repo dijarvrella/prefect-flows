@@ -19,4 +19,4 @@ RUN apt-get update && \
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # Set the entrypoint to the script
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/tini", "-g", "--", "/usr/local/bin/entrypoint.sh"]
