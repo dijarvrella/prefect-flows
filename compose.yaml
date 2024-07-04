@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  prefect-server:
+    image: dijarvrella444/prefect-base:latest
+    environment:
+      - PREFECT_API_URL=http://localhost:4200/api
+      - PREFECT_SERVER_API_HOST=0.0.0.0
+    ports:
+      - "4200-4201:4200-4201"
+    command: prefect server start
