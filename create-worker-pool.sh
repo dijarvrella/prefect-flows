@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Path to your custom base job template
-BASE_JOB_TEMPLATE_PATH="my-custom-base-job-template.yaml"
+BASE_JOB_TEMPLATE_PATH="worker-base-job-template.yaml"
 
 # Work pool name
 WORK_POOL_NAME="seedoo-custom-worker-1"

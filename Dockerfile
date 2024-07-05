@@ -6,6 +6,7 @@ ENV PREFECT_API_URL=http://localhost:4200/api
 ENV PREFECT_SERVER_API_HOST=0.0.0.0
 
 COPY flow.py .
+COPY worker-base-job-template.yaml .
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
 # Install necessary Python packages

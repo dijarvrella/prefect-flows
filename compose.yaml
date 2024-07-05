@@ -10,6 +10,18 @@ services:
     ports:
       - "4200-4201:4200-4201"
     command: prefect server start
+  prefect-dev-server:
+    image: dijarvrella444/prefect-base:latest
+    environment:
+      - PREFECT_API_URL=http://localhost:4200/api
+      - PREFECT_SERVER_API_HOST=0.0.0.0
+      - PREFECT_NODE_TYPE=server
+      - BASE_JOB_TEMPLATE_PATH=worker-base-job-template.yaml
+      - WORK_POOL_NAME=seedoo-custom-worker
+      - WORK_POOL_TYPE=docker
+    ports:
+      - "4220-4221:4200-4201"
+    command: prefect server start && prefect work-pool create "$WORK_POOL_NAME" --type "$WORK_POOL_TYPE" --base-job-template "$BASE_JOB_TEMPLATE_PATH"
   prefect-worker:
     image: dijarvrella444/prefect-base:latest
     network_mode: "host"
