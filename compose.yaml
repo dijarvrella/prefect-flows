@@ -16,4 +16,6 @@ services:
     environment:
       - PREFECT_API_URL=http://10.3.0.4:4200/api
       - PREFECT_NODE_TYPE=worker
-    command: prefect worker start --pool "seedoo-custom-worker"
+    command: prefect worker start --pool "seedoo-custom-worker" --type "docker"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
