@@ -33,7 +33,7 @@
           "type": "string"
         },
         "default": {
-          "PREFECT_API_URL": "http://10.3.0.4:4200/api",
+          "PREFECT_API_URL": "http://10.3.0.4:4220/api",
           "MKL_NUM_THREADS": "8",
           "NUMBA_NUM_THREADS": "8",
           "NUMBA_THREADING_LAYER": "tbb",
