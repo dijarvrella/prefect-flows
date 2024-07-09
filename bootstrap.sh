@@ -1,14 +1,16 @@
 #!/bin/bash
 
+
+echo "               *                  "
+echo "                                  "
+echo "PREFECT_API_URL: $PREFECT_API_URL"
+echo "                                  "
+echo "               *                  "
 # Function to read block type id
 read_block_type_id() {
-
-  response=$(curl -s 'http://172.172.233.164:4220/api/block_types/slug/docker-registry-credentials')
-  echo "Response: $response"
+  request=$(curl -s "$PREFECT_API_URL/block_types/slug/docker-registry-credentials")
   block_type_id=$(echo "$response" | jq -r '.id')
-  echo "Block Type ID: $block_type_id before setting env variable"
   export BLOCK_TYPE_ID=$block_type_id
-  echo "Block Type ID: $BLOCK_TYPE_ID"
 }
 read_block_schema_id() {
   local block_type_id=$1
@@ -21,14 +23,14 @@ read_block_schema_id() {
     }
   }'
 
-  response=$(curl "http://172.172.233.164:4220/api/block_schemas/filter" \
+  response=$(curl "$PREFECT_API_URL/block_schemas/filter" \
     -H 'Accept: application/json, text/plain, */*' \
     -H 'Accept-Language: en-US,en;q=0.9' \
     -H 'Connection: keep-alive' \
     -H 'Content-Type: application/json' \
     -H 'DNT: 1' \
-    -H 'Origin: http://172.172.233.164:4220' \
-    -H 'Referer: http://172.172.233.164:4220/blocks/catalog' \
+    -H 'Origin: ${PREFECT_API_URL%/*}' \
+    -H 'Referer: ${PREFECT_API_URL%/*}/blocks/catalog' \
     -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 Edg/126.0.0.0' \
     -H 'X-PREFECT-UI: true' \
     --data-raw "$data" \
@@ -61,14 +63,14 @@ create_docker_registry_credentials() {
       "reauth": '"$reauth"'
     }
   }'
-  response=$(curl "http://172.172.233.164:4220/api/block_documents/" \
+  response=$(curl "$PREFECT_API_URL/block_documents/" \
     -H 'Accept: application/json, text/plain, */*' \
     -H 'Accept-Language: en-US,en;q=0.9' \
     -H 'Connection: keep-alive' \
     -H 'Content-Type: application/json' \
     -H 'DNT: 1' \
-    -H "Origin: http://172.172.233.164:4220/api" \
-    -H "Referer: http://172.172.233.164:4220/api/blocks/catalog/${BLOCK_TYPE_SLUG}/create" \
+    -H "Origin: $PREFECT_API_URL" \
+    -H "Referer: $PREFECT_API_URL/blocks/catalog/${BLOCK_TYPE_SLUG}/create" \
     -H 'X-PREFECT-UI: true' \
     -d "$data" \
     $INSECURE)
@@ -87,7 +89,7 @@ create_docker_registry_credentials() {
   echo "Created: $created"
   echo "Updated: $updated"
   echo "Block Type Name: $block_type_name"
-  echo "Changing the worker-dev-base-job-template.yaml file"
+  echo "Changing the worker-dev-base-job-template.yaml file REPLACE_ME_DOCKER_CREDS_ID with $DOCKER_CREDS_ID"
   sed "s/REPLACE_ME_DOCKER_CREDS_ID/$DOCKER_CREDS_ID/g" worker-dev-base-job-template.yaml > worker-dev-base-job-template.yaml.tmp && cat worker-dev-base-job-template.yaml.tmp | grep block_document_id && cp worker-dev-base-job-template.yaml.tmp worker-dev-base-job-template.yaml && rm worker-dev-base-job-template.yaml.tmp
   echo "Replaced the docker creds id in the worker-base-job-template.yaml file"
   cat worker-dev-base-job-template.yaml | grep block_document_id
@@ -101,4 +103,3 @@ read_block_schema_id $BLOCK_TYPE_ID
 
 # Call create_docker_registry_credentials function
 create_docker_registry_credentials $BLOCK_TYPE_ID $BLOCK_SCHEMA_ID
-

@@ -34,15 +34,15 @@ services:
     ports:
       - "4220-4221:4200-4201"
     command: >
-      /bin/sh -c "prefect server start & sleep 20 &&
+      /bin/sh -c "prefect server start & sleep 10 &&
       apt update && apt install -y curl jq &&
       chmod +x bootstrap.sh && ./bootstrap.sh && sleep 10 &&
       prefect work-pool create \"$WORK_POOL_NAME\" --type \"$WORK_POOL_TYPE\" && sleep 10 &&
       prefect work-pool update \"$WORK_POOL_NAME\" --base-job-template \"$BASE_JOB_TEMPLATE_PATH\" &&
       prefect deploy -n train_flow -p seedoo-custom-worker-1 flow.py:pull_and_run_image & wait"
     volumes:
-      - /home/seedoo/dijar-kickoff/prefect/marvin/worker-dev-base-job-template.yaml:/opt/prefect/worker-dev-base-job-template.yaml
-      - /home/seedoo/dijar-kickoff/prefect/marvin/bootstrap.sh:/opt/prefect/bootstrap.sh
+      - $PWD/worker-dev-base-job-template.yaml:/opt/prefect/worker-dev-base-job-template.yaml
+      - $PWD/bootstrap.sh:/opt/prefect/bootstrap.sh
   prefect-dev-worker:
     image: dijarvrella444/prefect-base:latest
     network_mode: "host"
