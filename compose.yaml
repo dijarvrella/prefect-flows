@@ -7,6 +7,19 @@ services:
       - PREFECT_API_URL=http://localhost:4200/api
       - PREFECT_SERVER_API_HOST=0.0.0.0
       - PREFECT_NODE_TYPE=server
+      - BASE_JOB_TEMPLATE_PATH
+      - WORK_POOL_NAME
+      - WORK_POOL_TYPE
+      - DOCKER_USERNAME
+      - DOCKER_PASSWORD
+      - MKL_NUM_THREADS
+      - NUMBA_NUM_THREADS
+      - NUMBA_THREADING_LAYER
+      - OMP_NUM_THREADS
+      - OPENBLAS_NUM_THREADS
+      - SEEDOO_DB_IP
+      - SEEDOO_DB_PORT
+      - SEEDOO_PRINT_SQL_DEBUG
     ports:
       - "4200-4201:4200-4201"
     command: prefect server start
@@ -30,6 +43,14 @@ services:
       - WORK_POOL_TYPE
       - DOCKER_USERNAME
       - DOCKER_PASSWORD
+      - MKL_NUM_THREADS
+      - NUMBA_NUM_THREADS
+      - NUMBA_THREADING_LAYER
+      - OMP_NUM_THREADS
+      - OPENBLAS_NUM_THREADS
+      - SEEDOO_DB_IP
+      - SEEDOO_DB_PORT
+      - SEEDOO_PRINT_SQL_DEBUG
       #- PREFECT_DEBUG_MODE=1
     ports:
       - "4220-4221:4200-4201"
