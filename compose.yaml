@@ -52,8 +52,6 @@ services:
       - SEEDOO_DB_PORT
       - SEEDOO_PRINT_SQL_DEBUG
       #- PREFECT_DEBUG_MODE=1
-    ports:
-      - "4220-4221:4200-4201"
     network_mode: "host"
     command: >
       /bin/sh -c "./bootstrap.sh"
