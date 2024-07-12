@@ -35,11 +35,7 @@ services:
       - "4220-4221:4200-4201"
     network_mode: "host"
     command: >
-      /bin/sh -c "prefect server start & sleep 10 &&
-      ./bootstrap.sh && sleep 10 &&
-      prefect work-pool create \"$WORK_POOL_NAME\" --type \"$WORK_POOL_TYPE\" && sleep 10 &&
-      prefect work-pool update \"$WORK_POOL_NAME\" --base-job-template \"$BASE_JOB_TEMPLATE_PATH\" &&
-      prefect deploy -n train_flow -p seedoo-custom-worker flow.py:pull_and_run_image & wait"
+      /bin/sh -c "./bootstrap.sh"
     volumes:
       - $PWD/worker-dev-base-job-template.yaml:/opt/prefect/worker-dev-base-job-template.yaml
       - $PWD/bootstrap.sh:/opt/prefect/bootstrap.sh
