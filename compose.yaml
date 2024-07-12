@@ -61,7 +61,7 @@ services:
       - $PWD/worker-dev-base-job-template.yaml:/opt/prefect/worker-dev-base-job-template.yaml
       - $PWD/bootstrap.sh:/opt/prefect/bootstrap.sh
   prefect-dev-worker:
-    image: prefect-worker-test:latest
+    image: seedooinsights/prefect-worker:latest
     network_mode: "host"
     environment:
       - PREFECT_API_URL=http://10.3.0.4:4220/api
