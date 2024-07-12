@@ -9,8 +9,10 @@ echo "               *                  "
 # Function to read block type id
 read_block_type_id() {
   request=$(curl -s "$PREFECT_API_URL/block_types/slug/docker-registry-credentials")
+  response=$request
   block_type_id=$(echo "$response" | jq -r '.id')
   export BLOCK_TYPE_ID=$block_type_id
+  echo "Block Type ID: $BLOCK_TYPE_ID"
 }
 read_block_schema_id() {
   local block_type_id=$1
@@ -23,7 +25,7 @@ read_block_schema_id() {
     }
   }'
 
-  response=$(curl "$PREFECT_API_URL/block_schemas/filter" \
+  response=$(curl -s "$PREFECT_API_URL/block_schemas/filter" \
     -H 'Accept: application/json, text/plain, */*' \
     -H 'Accept-Language: en-US,en;q=0.9' \
     -H 'Connection: keep-alive' \
@@ -35,12 +37,9 @@ read_block_schema_id() {
     -H 'X-PREFECT-UI: true' \
     --data-raw "$data" \
     --insecure)
-
-  echo "Response: $response"
+    
   block_schema_id=$(echo "$response" | jq -r '.[0].id')
-  echo "Block Schema ID: $block_schema_id before setting env variable"
   export BLOCK_SCHEMA_ID=$block_schema_id
-  echo "Post ENV Block Schema ID: $BLOCK_SCHEMA_ID"
 }
 
 # Function to create docker-registry-credentials
@@ -63,7 +62,7 @@ create_docker_registry_credentials() {
       "reauth": '"$reauth"'
     }
   }'
-  response=$(curl "$PREFECT_API_URL/block_documents/" \
+  response=$(curl -s "$PREFECT_API_URL/block_documents/" \
     -H 'Accept: application/json, text/plain, */*' \
     -H 'Accept-Language: en-US,en;q=0.9' \
     -H 'Connection: keep-alive' \
@@ -85,11 +84,10 @@ create_docker_registry_credentials() {
   # Add more fields as needed
 
   # Print the parsed output in a nice format
-  echo "ID: $id"
   echo "Created: $created"
   echo "Updated: $updated"
   echo "Block Type Name: $block_type_name"
-  echo "Changing the worker-dev-base-job-template.yaml file REPLACE_ME_DOCKER_CREDS_ID with $DOCKER_CREDS_ID"
+  echo "Changing the worker-dev-base-job-template.yaml file"
   sed "s/REPLACE_ME_DOCKER_CREDS_ID/$DOCKER_CREDS_ID/g" worker-dev-base-job-template.yaml > worker-dev-base-job-template.yaml.tmp && cat worker-dev-base-job-template.yaml.tmp | grep block_document_id && cp worker-dev-base-job-template.yaml.tmp worker-dev-base-job-template.yaml && rm worker-dev-base-job-template.yaml.tmp
   echo "Replaced the docker creds id in the worker-base-job-template.yaml file"
   cat worker-dev-base-job-template.yaml | grep block_document_id

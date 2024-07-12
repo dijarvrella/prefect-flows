@@ -67,10 +67,16 @@ async def start_container(container_id):
 async def get_docker_container_logs_flow(container_id):
     # Export out the container logs
     logger = get_run_logger()
+    previous_logs = []
     while True:
         logger.info(f"Fetching logs from container with ID: {container_id}...")
         container_logs = await get_docker_container_logs(container_id=container_id)
         logger.info(f"Container logs: {container_logs}")
+        container_logs_lines = container_logs.splitlines()
+        new_logs = container_logs_lines[len(previous_logs):]
+        if new_logs:
+            logger.info(f"New container logs: {new_logs}")
+        previous_logs = container_logs_lines
         await asyncio.sleep(5)  # Adjust the interval as needed
 
 @task
