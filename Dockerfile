@@ -8,11 +8,13 @@ ENV PREFECT_SERVER_API_HOST=0.0.0.0
 COPY flow.py .
 COPY worker-base-job-template.yaml .
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY bootstrap.sh /bootstrap.sh
+RUN chmod +x /bootstrap.sh
 
 # Install necessary Python packages
 RUN pip install prefect-docker prefect-github requests==2.31.0
 RUN apt-get update && \
-    apt-get install -y docker.io && \
+    apt-get install -y docker.io curl jq && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
     
