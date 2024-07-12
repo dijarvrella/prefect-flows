@@ -34,15 +34,15 @@
         },
         "default": {
           "PREFECT_NODE_TYPE": "worker",
-          "PREFECT_API_URL": "http://10.3.0.4:4220/api",
-          "MKL_NUM_THREADS": "8",
-          "NUMBA_NUM_THREADS": "8",
-          "NUMBA_THREADING_LAYER": "tbb",
-          "OMP_NUM_THREADS": "8",
-          "OPENBLAS_NUM_THREADS": "8",
-          "SEEDOO_DB_IP": "4.227.158.50",
-          "SEEDOO_DB_PORT": "5434",
-          "SEEDOO_PRINT_SQL_DEBUG": "false"
+          "PREFECT_API_URL": "http://REPLACE_AZ_INSTANCE_HOST_IP:4200/api",
+          "MKL_NUM_THREADS": "REPLACE_MKL_NUM_THREADS",
+          "NUMBA_NUM_THREADS": "REPLACE_NUMBA_NUM_THREADS",
+          "NUMBA_THREADING_LAYER": "REPLACE_NUMBA_THREADING_LAYER",
+          "OMP_NUM_THREADS": "REPLACE_OMP_NUM_THREADS",
+          "OPENBLAS_NUM_THREADS": "REPLACE_OPENBLAS_NUM_THREADS",
+          "SEEDOO_DB_IP": "REPLACE_SEEDOO_DB_IP",
+          "SEEDOO_DB_PORT": "REPLACE_SEEDOO_DB_PORT",
+          "SEEDOO_PRINT_SQL_DEBUG": "REPLACE_SEEDOO_PRINT_SQL_DEBUG"
         }
       },
       "labels": {
