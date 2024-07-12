@@ -62,7 +62,7 @@ services:
     image: seedooinsights/prefect-worker:latest
     network_mode: "host"
     environment:
-      - PREFECT_API_URL=http://10.3.0.4:4220/api
+      - PREFECT_API_URL=http://10.3.0.4:4200/api
       - PREFECT_NODE_TYPE=worker
       #- PREFECT_DEBUG_MODE=1
     command: prefect worker start --pool "seedoo-custom-worker" --type "docker"

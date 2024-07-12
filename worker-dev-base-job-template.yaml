@@ -63,7 +63,7 @@
         "description": "The image reference of a container image to use for created jobs. If not set, the latest Prefect image will be used.",
         "example": "docker.io/prefecthq/prefect:2-latest",
         "type": "string",
-        "default": "docker.io/dijarvrella444/prefect-agent:latest"
+        "default": "docker.io/seedooinsights/prefect-worker:latest"
       },
       "registry_credentials": {
         "title": "Registry Credentials",
