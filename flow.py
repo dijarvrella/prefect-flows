@@ -88,7 +88,7 @@ async def wait_for_container_exit(container_id):
         if container.status in ["exited", "dead"]:
             logger.info(f"Container with ID {container_id} has exited.")
             break
-        await asyncio.sleep(5)  # Adjust the interval as needed
+        await asyncio.sleep(25)  # Adjust the interval as needed
 
 @flow
 async def pull_and_run_image():
