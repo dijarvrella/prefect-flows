@@ -77,7 +77,7 @@ async def get_docker_container_logs_flow(container_id):
         if new_logs:
             logger.info(f"New container logs: {new_logs}")
         previous_logs = container_logs_lines
-        await asyncio.sleep(5)  # Adjust the interval as needed
+        await asyncio.sleep(25)  # Adjust the interval as needed
 
 @task
 async def wait_for_container_exit(container_id):
