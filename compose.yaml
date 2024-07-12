@@ -39,7 +39,7 @@ services:
       ./bootstrap.sh && sleep 10 &&
       prefect work-pool create \"$WORK_POOL_NAME\" --type \"$WORK_POOL_TYPE\" && sleep 10 &&
       prefect work-pool update \"$WORK_POOL_NAME\" --base-job-template \"$BASE_JOB_TEMPLATE_PATH\" &&
-      prefect deploy -n train_flow -p seedoo-custom-worker-1 flow.py:pull_and_run_image & wait"
+      prefect deploy -n train_flow -p seedoo-custom-worker flow.py:pull_and_run_image & wait"
     volumes:
       - $PWD/worker-dev-base-job-template.yaml:/opt/prefect/worker-dev-base-job-template.yaml
       - $PWD/bootstrap.sh:/opt/prefect/bootstrap.sh
@@ -50,6 +50,6 @@ services:
       - PREFECT_API_URL=http://10.3.0.4:4220/api
       - PREFECT_NODE_TYPE=worker
       #- PREFECT_DEBUG_MODE=1
-    command: prefect worker start --pool "seedoo-custom-worker-1" --type "docker"
+    command: prefect worker start --pool "seedoo-custom-worker" --type "docker"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
