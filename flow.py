@@ -24,7 +24,7 @@ async def create_container():
     logger.info("Creating a container with the specified flags...")
     container = await create_docker_container(
         image="seedooinsights/build:latest",
-        command=["bash", "-c", "train.sh /seedoodata/datasets/data/traffic_lights/data.pkl"],
+        command=["bash", "-c", "./train.sh", "/seedoodata/datasets/data/traffic_lights/data.pkl"],
         environment=[
             "MKL_NUM_THREADS=$MKL_NUM_THREADS",
             "NUMBA_NUM_THREADS=$NUMBA_NUM_THREADS",
